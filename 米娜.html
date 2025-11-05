@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -63,7 +62,7 @@
             width: 220px;
             height: 100px;
             border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -77,7 +76,6 @@
                 transform: scale(0);
                 opacity: 0;
             }
-
             to {
                 transform: scale(1);
                 opacity: 1;
@@ -103,7 +101,7 @@
         }
 
         .close-btn:hover {
-            background-color: rgba(0, 0, 0, 0.1);
+            background-color: rgba(0,0,0,0.1);
             color: #e91e63;
         }
 
@@ -122,15 +120,8 @@
         }
 
         @keyframes heartbeat {
-
-            0%,
-            100% {
-                transform: scale(1);
-            }
-
-            50% {
-                transform: scale(1.1);
-            }
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
         }
 
         #blessingContainer {
@@ -148,10 +139,9 @@
         }
     </style>
 </head>
-
 <body>
     <h1>点击开始接收祝福吧！</h1>
-
+    
     <div class="button-container">
         <button id="startBlessing">开启祝福</button>
         <button id="closeAll">关闭所有</button>
@@ -178,8 +168,8 @@
 
         const specialBlessing = "我会一直一直陪着你！";
         const backgroundColors = [
-            "#ffc0cb", "#ffb6c1", "#ff69b4", "#ff1493", "#db7093",
-            "#bc8f8f", "#c71585", "#ffa07a", "#ff7f50", "#ffa500",
+            "#ffc0cb", "#ffb6c1", "#ff69b4", "#ff1493", "#db7093", 
+            "#bc8f8f", "#c71585", "#ffa07a", "#ff7f50", "#ffa500", 
             "#ffffe0", "#e6e6fa", "#d8bfd8", "#dda0dd", "#ee82ee"
         ];
 
@@ -204,28 +194,28 @@
         function createBlessingPopup(index) {
             const popup = document.createElement('div');
             popup.className = 'blessing-popup';
-
+            
             // 随机背景色
             const randomColor = backgroundColors[Math.floor(Math.random() * backgroundColors.length)];
             popup.style.backgroundColor = randomColor;
-
+            
             // 随机位置
             const position = getRandomPosition();
             popup.style.left = position.x + 'px';
             popup.style.top = position.y + 'px';
-
+            
             // 创建关闭按钮
             const closeBtn = document.createElement('button');
             closeBtn.className = 'close-btn';
             closeBtn.innerHTML = '×';
-            closeBtn.onclick = function () {
+            closeBtn.onclick = function() {
                 closePopup(popup);
             };
-
+            
             // 创建祝福文本
             const blessingText = document.createElement('div');
             blessingText.className = 'blessing-text';
-
+            
             // 10%概率显示特殊祝福，且只能显示一次
             if (!specialBlessingShown && Math.random() < 0.1) {
                 blessingText.textContent = specialBlessing;
@@ -235,15 +225,15 @@
                 const randomBlessing = normalBlessings[Math.floor(Math.random() * normalBlessings.length)];
                 blessingText.textContent = randomBlessing;
             }
-
+            
             popup.appendChild(closeBtn);
             popup.appendChild(blessingText);
-
+            
             blessingContainer.appendChild(popup);
             blessingPopups.push(popup);
-
+            
             // 添加点击弹窗本身也可以关闭的功能
-            popup.onclick = function (e) {
+            popup.onclick = function(e) {
                 if (e.target === popup || e.target === blessingText) {
                     closePopup(popup);
                 }
@@ -279,12 +269,12 @@
         function startBlessing() {
             startBtn.disabled = true;
             startBtn.textContent = '祝福发送中...';
-
+            
             let count = 0;
             const interval = setInterval(() => {
                 createBlessingPopup(count);
                 count++;
-
+                
                 if (count >= 100) {
                     clearInterval(interval);
                     // 5秒后恢复按钮
@@ -293,7 +283,7 @@
                         startBtn.textContent = '开启祝福';
                     }, 5000);
                 }
-            }, 50);
+            }, 200);
         }
 
         // 绑定事件
@@ -318,5 +308,4 @@
         });
     </script>
 </body>
-
 </html>
